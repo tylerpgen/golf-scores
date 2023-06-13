@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -8,9 +9,12 @@ const client = new MongoClient(uri);
 
 const connectToDatabase = async () => {
   try {
-    await client.connect();
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("Connected to Database");
-    return client.db();
+    return mongoose.connection;
   } catch (e) {
     console.log(e);
   }
