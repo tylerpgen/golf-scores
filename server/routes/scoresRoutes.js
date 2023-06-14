@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/scores", getAllScores);
 
 //Route for creating a new score
-router.post("/scores", addScore);
+router.post("/scores/add", addScore);
 
 //Route for editing an existing score
 router.put("/scores/:id", editScore);
