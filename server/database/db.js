@@ -1,4 +1,3 @@
-import { MongoClient } from "mongodb";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
@@ -14,8 +13,9 @@ const connectToDatabase = async () => {
     });
     console.log("Connected to Database");
     return mongoose.connection;
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log("Failed to connect to the database:", error);
+    process.exit(1);
   }
 };
 
