@@ -13,7 +13,6 @@ app.use(cors());
 app.use(express.json());
 
 //Connect to database
-
 connectToDatabase()
   .then(() => {
     app.listen(port, () => {
