@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import App from "./App.jsx";
 import "./index.css";
-import rootReducer from "../reducers";
+import rootReducer from "../features/index.jsx";
 
 const store = configureStore({
   reducer: rootReducer,
