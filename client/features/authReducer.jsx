@@ -11,6 +11,7 @@ const initialState = {
   message: "",
 };
 
+// Async thunk action creator for registering a user
 export const register = createAsyncThunk("auth/register", async (user, thunkAPI) => {
   try {
     return await authService.register(user);
