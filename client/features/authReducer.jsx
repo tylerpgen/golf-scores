@@ -12,13 +12,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuthData: (state, action) => {
-      state.authData = action.payload;
-    },
-    clearAuthData: (state) => {
-      state.authData = null;
+    reset: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = "";
     },
   },
+  extraReducers: () => {},
 });
 
 export const { setAuthData, clearAuthData } = authSlice.actions;
