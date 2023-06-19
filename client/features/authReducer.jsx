@@ -22,11 +22,13 @@ export const register = createAsyncThunk("auth/register", async (user, thunkAPI)
   }
 });
 
+// Creating an authSlice using Redux Toolkit's createSlice function
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     reset: (state) => {
+      // Resetting the state properties to their initial values
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;
