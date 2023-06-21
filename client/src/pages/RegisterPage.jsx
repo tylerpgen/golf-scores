@@ -69,6 +69,59 @@ const RegisterPage = () => {
               }}
             />
           </FormControl>
+          <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
+            <TextField
+              id="email"
+              aria-describedby="email"
+              placeholder="Email"
+              fullWidth
+              sx={{
+                mb: "15px",
+                "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  border: "1px solid #e8b923",
+                },
+                "& .MuiOutlinedInput-root": {
+                  "&:hover fieldset": {
+                    borderColor: "#005e23",
+                  },
+                },
+              }}
+            />
+            <TextField
+              id="password"
+              aria-describedby="password"
+              placeholder="Password"
+              fullWidth
+              sx={{
+                mb: "15px",
+                "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  border: "1px solid #e8b923",
+                },
+                "& .MuiOutlinedInput-root": {
+                  "&:hover fieldset": {
+                    borderColor: "#005e23",
+                  },
+                },
+              }}
+            />
+            <TextField
+              id="confirm-password"
+              aria-describedby="confirm-password"
+              placeholder="Confirm Password"
+              fullWidth
+              sx={{
+                mb: "15px",
+                "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  border: "1px solid #e8b923",
+                },
+                "& .MuiOutlinedInput-root": {
+                  "&:hover fieldset": {
+                    borderColor: "#005e23",
+                  },
+                },
+              }}
+            />
+          </FormControl>
         </Paper>
       </Container>
     </Box>
