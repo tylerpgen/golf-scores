@@ -1,8 +1,19 @@
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+
+const theme = createTheme();
+
 function App() {
   return (
-    <>
-      <h1>Hi</h1>
-    </>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Routes>
+          <Route path="/" exact element={<HomePage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 
