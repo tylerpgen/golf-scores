@@ -20,7 +20,6 @@ const HomePage = () => {
           variant="h1"
           sx={{
             mb: "8px",
-            // pt: "16px",
             color: "white",
             fontSize: "4rem",
             fontFamily: "Dancing Script",
@@ -49,7 +48,7 @@ const HomePage = () => {
           Keep track of your scores easily!
         </Typography>
         <Container align="center">
-          <Link href="/signup" sx={{ textDecoration: "none" }}>
+          <Link href="/register" sx={{ textDecoration: "none" }}>
             <Button
               variant="contained"
               sx={{
