@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Box, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
 
 const RegisterPage = () => {
   const theme = useTheme();
@@ -39,7 +39,7 @@ const RegisterPage = () => {
               placeholder="First Name"
               sx={{
                 flex: "1",
-                minWidth: "40%",
+                maxWidth: "48%",
                 marginRight: "10px",
                 "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
                   border: "1px solid #e8b923",
@@ -121,6 +121,34 @@ const RegisterPage = () => {
                 },
               }}
             />
+            <Typography p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "1rem" }}>
+              By creating an account, I agree to the terms of service of the site, in accordance to the{" "}
+              <b>PRIVACY POLICY</b>
+            </Typography>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                marginTop: "10px",
+                padding: "15px",
+                fontSize: "1.4rem",
+                fontFamily: "Dosis",
+                fontWeight: "600",
+                height: "50px",
+                backgroundColor: "#e8b923",
+                "&:hover": {
+                  backgroundColor: "#e8b923",
+                  transform: "scale(1.02)",
+                  transition: "all 0.1s ease-in-out",
+                },
+                [theme.breakpoints.up("lg")]: {
+                  fontSize: "2rem",
+                  width: "fit-content",
+                },
+              }}
+            >
+              Create Account
+            </Button>
           </FormControl>
         </Paper>
       </Container>
