@@ -2,6 +2,7 @@ import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
 
 const RegisterPage = () => {
+  // Handle Submit function for form controls
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -74,6 +75,9 @@ const RegisterPage = () => {
                 }}
               />
             </FormControl>
+
+            {/* Two FormControl components in order to have full width TextFields */}
+
             <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
               <TextField
                 id="email"
