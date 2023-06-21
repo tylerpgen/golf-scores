@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Box, Button, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, FormControl, Link, Paper, TextField, Typography } from "@mui/material";
 
 const RegisterPage = () => {
   // Handle Submit function for form controls
@@ -158,6 +158,13 @@ const RegisterPage = () => {
               >
                 Create Account
               </Button>
+              <Typography p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "1rem" }}>
+                Already have an account?
+                {/* Temporary Link to Homepage before Login page built */}
+                <Link href="/" sx={{ cursor: "pointer" }}>
+                  Click Here
+                </Link>
+              </Typography>
             </FormControl>
           </form>
         </Paper>
