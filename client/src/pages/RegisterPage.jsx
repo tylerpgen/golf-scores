@@ -1,10 +1,28 @@
+import { useState, useEffect } from "react";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Link, Paper, TextField, Typography } from "@mui/material";
 
 const RegisterPage = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+
+  const { firstName, lastName, email, password, password2 } = formData;
+
   // Handle Submit function for form controls
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const theme = useTheme();
@@ -41,6 +59,9 @@ const RegisterPage = () => {
             <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
               <TextField
                 id="first-name"
+                name="first-name"
+                value={firstName}
+                onChange={handleChange}
                 aria-describedby="first-name"
                 placeholder="First Name"
                 sx={{
@@ -59,6 +80,9 @@ const RegisterPage = () => {
               />
               <TextField
                 id="last-name"
+                name="last-name"
+                value={lastName}
+                onChange={handleChange}
                 aria-describedby="last-name"
                 placeholder="Last Name"
                 sx={{
@@ -80,7 +104,11 @@ const RegisterPage = () => {
 
             <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
               <TextField
+                type="email"
                 id="email"
+                name="email"
+                value={email}
+                onChange={handleChange}
                 aria-describedby="email"
                 placeholder="Email"
                 fullWidth
@@ -97,7 +125,11 @@ const RegisterPage = () => {
                 }}
               />
               <TextField
+                type="password"
                 id="password"
+                name="password"
+                value={password}
+                onChange={handleChange}
                 aria-describedby="password"
                 placeholder="Password"
                 fullWidth
@@ -114,7 +146,11 @@ const RegisterPage = () => {
                 }}
               />
               <TextField
-                id="confirm-password"
+                type="password"
+                id="password2"
+                name="password2"
+                value={password2}
+                onChange={handleChange}
                 aria-describedby="confirm-password"
                 placeholder="Confirm Password"
                 fullWidth
@@ -161,7 +197,7 @@ const RegisterPage = () => {
                 Create Account
               </Button>
               <Typography mt="10px" p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "0.9rem" }}>
-                Already have an account?
+                Already have an account? {""}
                 <Link href="/login" sx={{ cursor: "pointer" }}>
                   Click Here
                 </Link>
