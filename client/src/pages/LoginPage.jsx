@@ -1,7 +1,22 @@
+import { useState, useEffect } from "react";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Link, Paper, TextField, Typography } from "@mui/material";
 
 const LoginPage = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   // Handle Submit function for form controls
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,7 +55,11 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit}>
             <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
               <TextField
+                type="email"
                 id="email"
+                name="email"
+                value={email}
+                onChange={handleChange}
                 aria-describedby="email"
                 placeholder="Email"
                 fullWidth
@@ -57,7 +76,11 @@ const LoginPage = () => {
                 }}
               />
               <TextField
+                type="password"
                 id="password"
+                name="password"
+                value={password}
+                onChange={handleChange}
                 aria-describedby="password"
                 placeholder="Password"
                 fullWidth
