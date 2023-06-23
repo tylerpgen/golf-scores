@@ -162,7 +162,6 @@ const RegisterPage = () => {
               </Button>
               <Typography mt="10px" p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "0.9rem" }}>
                 Already have an account?
-                {/* Temporary Link to Homepage before Login page built */} {""}
                 <Link href="/login" sx={{ cursor: "pointer" }}>
                   Click Here
                 </Link>

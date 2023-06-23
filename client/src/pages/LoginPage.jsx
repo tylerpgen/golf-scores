@@ -38,8 +38,6 @@ const LoginPage = () => {
             SIGN IN
           </Typography>
           <form onSubmit={handleSubmit}>
-            {/* Two FormControl components in order to have full width TextFields */}
-
             <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
               <TextField
                 id="email"
@@ -102,9 +100,8 @@ const LoginPage = () => {
                 LOGIN
               </Button>
               <Typography mt="10px" pt="15px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "0.9rem" }}>
-                Need an account?
-                {/* Temporary Link to Homepage before Login page built */} {""}
-                <Link href="/" sx={{ cursor: "pointer" }}>
+                Need an account? {""}
+                <Link href="/register" sx={{ cursor: "pointer" }}>
                   Click Here
                 </Link>
               </Typography>
