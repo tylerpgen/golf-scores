@@ -59,7 +59,7 @@ const RegisterPage = () => {
             <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
               <TextField
                 id="first-name"
-                name="first-name"
+                name="firstName"
                 value={firstName}
                 onChange={handleChange}
                 aria-describedby="first-name"
@@ -80,7 +80,7 @@ const RegisterPage = () => {
               />
               <TextField
                 id="last-name"
-                name="last-name"
+                name="lastName"
                 value={lastName}
                 onChange={handleChange}
                 aria-describedby="last-name"
