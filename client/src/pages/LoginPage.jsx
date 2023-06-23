@@ -19,7 +19,7 @@ const LoginPage = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Paper elevation={5} sx={{ minHeight: "500px", minWidth: "100%" }}>
+        <Paper elevation={5} sx={{ minHeight: "380px", minWidth: "100%" }}>
           <Typography
             align="left"
             variant="h2"
@@ -35,47 +35,9 @@ const LoginPage = () => {
               },
             }}
           >
-            CREATE AN ACCOUNT
+            SIGN IN
           </Typography>
           <form onSubmit={handleSubmit}>
-            <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
-              <TextField
-                id="first-name"
-                aria-describedby="first-name"
-                placeholder="First Name"
-                sx={{
-                  flex: "1",
-                  maxWidth: "48%",
-                  marginRight: "10px",
-                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    border: "1px solid #e8b923",
-                  },
-                  "& .MuiOutlinedInput-root": {
-                    "&:hover fieldset": {
-                      borderColor: "#005e23",
-                    },
-                  },
-                }}
-              />
-              <TextField
-                id="last-name"
-                aria-describedby="last-name"
-                placeholder="Last Name"
-                sx={{
-                  flex: "1",
-                  minWidth: "40%",
-                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    border: "1px solid #e8b923",
-                  },
-                  "& .MuiOutlinedInput-root": {
-                    "&:hover fieldset": {
-                      borderColor: "#005e23",
-                    },
-                  },
-                }}
-              />
-            </FormControl>
-
             {/* Two FormControl components in order to have full width TextFields */}
 
             <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
@@ -113,27 +75,6 @@ const LoginPage = () => {
                   },
                 }}
               />
-              <TextField
-                id="confirm-password"
-                aria-describedby="confirm-password"
-                placeholder="Confirm Password"
-                fullWidth
-                sx={{
-                  mb: "15px",
-                  "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    border: "1px solid #e8b923",
-                  },
-                  "& .MuiOutlinedInput-root": {
-                    "&:hover fieldset": {
-                      borderColor: "#005e23",
-                    },
-                  },
-                }}
-              />
-              <Typography p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "1rem" }}>
-                By creating an account, I agree to the terms of service of the site, in accordance to the{" "}
-                <b>PRIVACY POLICY</b>
-              </Typography>
               <Button
                 type="submit"
                 variant="contained"
@@ -153,15 +94,15 @@ const LoginPage = () => {
                   },
                   [theme.breakpoints.up("lg")]: {
                     fontSize: "2rem",
-                    marginLeft: "10px",
+
                     width: "fit-content",
                   },
                 }}
               >
-                Create Account
+                LOGIN
               </Button>
-              <Typography mt="10px" p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "0.9rem" }}>
-                Already have an account?
+              <Typography mt="10px" pt="15px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "0.9rem" }}>
+                Need an account?
                 {/* Temporary Link to Homepage before Login page built */} {""}
                 <Link href="/" sx={{ cursor: "pointer" }}>
                   Click Here
