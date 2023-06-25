@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { register, reset } from "../features/authReducer.jsx";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Link, Paper, TextField, Typography } from "@mui/material";
 
@@ -13,9 +17,26 @@ const RegisterPage = () => {
 
   const { firstName, lastName, email, password, password2 } = formData;
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+
   // Handle Submit function for form controls
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (password !== password2) {
+      toast.error("Passwords do no match");
+    } else {
+      const userData = {
+        name,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
+    }
   };
 
   const handleChange = (e) => {

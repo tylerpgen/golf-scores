@@ -1,6 +1,8 @@
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
@@ -18,6 +20,7 @@ function App() {
           <Route path="/login" exact element={<LoginPage />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </ThemeProvider>
   );
 }
