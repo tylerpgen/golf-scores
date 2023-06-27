@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import generateToken from "../utils/generateToken.js";
 import asyncHandler from "express-async-handler";
 
 //@desc Auth user/set token
@@ -27,6 +27,7 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    generateToken(res, user._id);
     res.status(201).json({
       _id: user._id,
       name: user.name,
