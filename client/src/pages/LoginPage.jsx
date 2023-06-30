@@ -20,6 +20,7 @@ const LoginPage = () => {
   // Handle Submit function for form controls
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("Submit");
   };
 
   const theme = useTheme();
