@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Link, Paper, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../features/usersApiSlice";
+import { setCredentials } from "../features/authReducer";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +13,18 @@ const LoginPage = () => {
   });
 
   const { email, password } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch;
+
+  const [login, { isLoading }] = useLoginMutation();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
