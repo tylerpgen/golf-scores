@@ -1,7 +1,21 @@
 import { useState } from "react";
-import { AppBar, IconButton, Link, SwipeableDrawer, Toolbar, Typography, Divider, List, ListItem } from "@mui/material";
+import {
+  AppBar,
+  IconButton,
+  Link,
+  SwipeableDrawer,
+  Toolbar,
+  Typography,
+  Divider,
+  List,
+  ListItem,
+  Button,
+} from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../features/usersApiSlice";
+import { logout } from "../features/authReducer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
@@ -15,6 +29,21 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth);
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <AppBar position="sticky" sx={{ background: "#005e23", boxShadow: "none" }}>
@@ -34,17 +63,18 @@ const Navbar = () => {
                     {userInfo.name}
                   </Typography>
                 </Link>
-                <Link
+                <Button
                   color="white"
                   variant="button"
                   underline="none"
-                  href={"/logout"}
+                  href={"/"}
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
+                  onClick={logoutHandler}
                 >
                   <Typography variant="h6" fontWeight="600" fontFamily="Inter">
                     Logout
                   </Typography>
-                </Link>
+                </Button>
               </>
             ) : (
               <>
