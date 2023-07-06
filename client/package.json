@@ -12,7 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.13.5",
+    "@mui/icons-material": "^5.13.7",
+    "@mui/material": "^5.13.7",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "jwt-decode": "^3.1.2",
@@ -35,6 +36,6 @@
   },
   "transformIgnorePatterns": [
     "node_modules/(?!(axios|react-toastify))"
-],
+  ],
   "proxy": "http://localhost:5000/"
 }
