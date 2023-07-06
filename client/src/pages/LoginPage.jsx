@@ -34,9 +34,15 @@ const LoginPage = () => {
   };
 
   // Handle Submit function for form controls
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submit");
+    try {
+      const res = await login(formData).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (error) {
+      console.log(error?.data?.message || error.error);
+    }
   };
 
   const theme = useTheme();
