@@ -19,19 +19,62 @@ const Navbar = () => {
   return (
     <AppBar position="sticky" sx={{ background: "#005e23", boxShadow: "none" }}>
       <Toolbar sx={{ flexGrow: 1, display: "flex", justifyContent: "right" }}>
-        {isNonMobileScreens ? (
-          <Link
-            color="white"
-            variant="button"
-            underline="none"
-            href={userInfo ? "" : "/login"}
-            sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
-          >
-            <Typography id="username" variant="h6" fontWeight="600" fontFamily="Inter">
-              {userInfo ? userInfo.name : "Login"}
-            </Typography>
-          </Link>
-        ) : null}
+        {isNonMobileScreens && (
+          <>
+            {userInfo ? (
+              <>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/"}
+                  sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    {userInfo.name}
+                  </Typography>
+                </Link>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/logout"}
+                  sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Logout
+                  </Typography>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/login"}
+                  sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Login
+                  </Typography>
+                </Link>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/register"}
+                  sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Sign Up
+                  </Typography>
+                </Link>
+              </>
+            )}
+          </>
+        )}
+
         {!isNonMobileScreens ? (
           <IconButton sx={{ ml: "auto" }}>
             <MenuIcon sx={{ color: "white", fontSize: 40 }} onClick={() => setOpen(true)} />
