@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../features/usersApiSlice";
 import { setCredentials } from "../features/authReducer";
+import MoonLoader from "react-spinners/MoonLoader";
 import { toast } from "react-toastify";
+
 import HomeButton from "../components/HomeButton";
 
 const LoginPage = () => {
@@ -123,6 +125,12 @@ const LoginPage = () => {
                     },
                   }}
                 />
+                {isLoading && (
+                  <Box margin="auto" display="block">
+                    {" "}
+                    <MoonLoader size={50} />
+                  </Box>
+                )}
                 <Button
                   type="submit"
                   variant="contained"
