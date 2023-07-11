@@ -2,56 +2,50 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { register, reset } from "../features/authReducer.jsx";
+import MoonLoader from "react-spinners/MoonLoader";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Link, Paper, TextField, Typography } from "@mui/material";
 import HomeButton from "../components/HomeButton";
+import { useRegisterMutation } from "../features/usersApiSlice";
+import { setCredentials } from "../features/authReducer";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     password: "",
     password2: "",
   });
 
-  const { firstName, lastName, email, password, password2 } = formData;
+  const { name, email, password, password2 } = formData;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
+  const [register, { isLoading }] = useRegisterMutation();
+  const { userInfo } = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   if (isError) {
-  //     toast.error(message);
-  //   }
-
-  //   if (isSuccess || user) {
-  //     navigate("/");
-  //   }
-
-  //   dispatch(reset);
-  // }, [user, isError, isSuccess, message, navigate, dispatch]);
-
-  useEffect(() => {});
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userInfo]);
 
   // Handle Submit function for form controls
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // if (password !== password2) {
-    //   toast.error("Passwords do no match");
-    // } else {
-    //   const userData = {
-    //     name,
-    //     email,
-    //     password,
-    //   };
-
-    //   dispatch(register(userData));
-    // }
+    if (password !== password2) {
+      toast.error("Passwords do no match");
+    } else {
+      try {
+        const res = await register(formData).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate("/");
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+        console.log(error?.data?.message || error.error);
+      }
+    }
   };
 
   const handleChange = (e) => {
@@ -96,36 +90,14 @@ const RegisterPage = () => {
             <form onSubmit={handleSubmit}>
               <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
                 <TextField
-                  id="first-name"
-                  name="firstName"
-                  value={firstName}
+                  id="name"
+                  name="name"
+                  value={name}
                   onChange={handleChange}
                   aria-describedby="first-name"
-                  placeholder="First Name"
+                  placeholder="Full Name"
+                  fullWidth
                   sx={{
-                    flex: "1",
-                    maxWidth: "48%",
-                    marginRight: "10px",
-                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      border: "1px solid #e8b923",
-                    },
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#005e23",
-                      },
-                    },
-                  }}
-                />
-                <TextField
-                  id="last-name"
-                  name="lastName"
-                  value={lastName}
-                  onChange={handleChange}
-                  aria-describedby="last-name"
-                  placeholder="Last Name"
-                  sx={{
-                    flex: "1",
-                    minWidth: "40%",
                     "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
                       border: "1px solid #e8b923",
                     },
@@ -208,6 +180,12 @@ const RegisterPage = () => {
                   By creating an account, I agree to the terms of service of the site, in accordance to the{" "}
                   <b>PRIVACY POLICY</b>
                 </Typography>
+                {isLoading && (
+                  <Box margin="auto" display="block">
+                    {" "}
+                    <MoonLoader size={50} />
+                  </Box>
+                )}
                 <Button
                   type="submit"
                   variant="contained"
