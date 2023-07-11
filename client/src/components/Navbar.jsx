@@ -56,7 +56,7 @@ const Navbar = () => {
                   color="white"
                   variant="button"
                   underline="none"
-                  href={"/"}
+                  href={"/profile"}
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                 >
                   <Typography variant="h6" fontWeight="600" fontFamily="Inter">
