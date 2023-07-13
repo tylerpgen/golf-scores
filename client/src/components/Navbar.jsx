@@ -63,11 +63,21 @@ const Navbar = () => {
                     {userInfo.name}
                   </Typography>
                 </Link>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/scores"}
+                  sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Scores
+                  </Typography>
+                </Link>
                 <Button
                   color="white"
                   variant="button"
                   underline="none"
-                  href={"/"}
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                   onClick={logoutHandler}
                 >

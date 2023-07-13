@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/");
+      navigate("/scores");
     }
   }, [navigate, userInfo]);
 
@@ -43,7 +43,6 @@ const LoginPage = () => {
     try {
       const res = await login(formData).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate("/");
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
