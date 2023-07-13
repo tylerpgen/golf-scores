@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
-import Navbar from "../components/Navbar";
+import MoonLoader from "react-spinners/MoonLoader";
 import { setCredentials } from "../features/authReducer";
+import { useUpdateUserMutation } from "../features/usersApiSlice";
+import HomeButton from "../components/HomeButton";
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
@@ -17,12 +18,13 @@ const ProfilePage = () => {
 
   const { name, email, password, password2 } = formData;
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
+  const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
+    // Update form data when userInfo changes
     setFormData((prevFormData) => ({
       ...prevFormData,
       name: userInfo.name,
@@ -36,11 +38,25 @@ const ProfilePage = () => {
     if (password !== password2) {
       toast.error("Passwords do no match");
     } else {
-      console.log("submit");
+      try {
+        // Call updateProfile mutation with the updated user data
+        const res = await updateProfile({
+          _id: userInfo._id,
+          name,
+          email,
+          password,
+        }).unwrap();
+        // Dispatch the updated credentials to update the user state
+        dispatch(setCredentials({ ...res }));
+        toast.success("Profile updated");
+      } catch (error) {
+        toast.error(error?.data.message || error.error);
+      }
     }
   };
 
   const handleChange = (e) => {
+    // Update form data as the user types into the input fields
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -50,7 +66,7 @@ const ProfilePage = () => {
   const theme = useTheme();
   return (
     <>
-      <Navbar />
+      <HomeButton />
       <Box
         sx={{
           minHeight: "100vh",
@@ -168,6 +184,12 @@ const ProfilePage = () => {
                     },
                   }}
                 />
+                {isLoading && (
+                  <Box margin="auto" display="block">
+                    {" "}
+                    <MoonLoader size={50} />
+                  </Box>
+                )}
                 <Button
                   type="submit"
                   variant="contained"
@@ -187,7 +209,7 @@ const ProfilePage = () => {
                     },
                     [theme.breakpoints.up("lg")]: {
                       fontSize: "2rem",
-                      marginLeft: "10px",
+
                       width: "fit-content",
                     },
                   }}
