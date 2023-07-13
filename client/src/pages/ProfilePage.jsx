@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
+import MoonLoader from "react-spinners/MoonLoader";
 import Navbar from "../components/Navbar";
 import { setCredentials } from "../features/authReducer";
+import { useUpdateUserMutation } from "../features/usersApiSlice";
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
@@ -17,10 +18,10 @@ const ProfilePage = () => {
 
   const { name, email, password, password2 } = formData;
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
+  const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -36,7 +37,18 @@ const ProfilePage = () => {
     if (password !== password2) {
       toast.error("Passwords do no match");
     } else {
-      console.log("submit");
+      try {
+        const res = await updateProfile({
+          _id: userInfo._id,
+          name,
+          email,
+          password,
+        }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        toast.success("Profile updated");
+      } catch (error) {
+        toast.error(error?.data.message || error.error);
+      }
     }
   };
 
@@ -168,6 +180,12 @@ const ProfilePage = () => {
                     },
                   }}
                 />
+                {isLoading && (
+                  <Box margin="auto" display="block">
+                    {" "}
+                    <MoonLoader size={50} />
+                  </Box>
+                )}
                 <Button
                   type="submit"
                   variant="contained"
@@ -187,7 +205,7 @@ const ProfilePage = () => {
                     },
                     [theme.breakpoints.up("lg")]: {
                       fontSize: "2rem",
-                      marginLeft: "10px",
+
                       width: "fit-content",
                     },
                   }}
