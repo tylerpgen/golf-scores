@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import { useTheme } from "@emotion/react";
 import { Box, Button, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
 import MoonLoader from "react-spinners/MoonLoader";
-import Navbar from "../components/Navbar";
 import { setCredentials } from "../features/authReducer";
 import { useUpdateUserMutation } from "../features/usersApiSlice";
+import HomeButton from "../components/HomeButton";
 
 const ProfilePage = () => {
   const [formData, setFormData] = useState({
@@ -66,7 +66,7 @@ const ProfilePage = () => {
   const theme = useTheme();
   return (
     <>
-      <Navbar />
+      <HomeButton />
       <Box
         sx={{
           minHeight: "100vh",
