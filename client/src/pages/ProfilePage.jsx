@@ -24,6 +24,7 @@ const ProfilePage = () => {
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
+    // Update form data when userInfo changes
     setFormData((prevFormData) => ({
       ...prevFormData,
       name: userInfo.name,
@@ -38,12 +39,14 @@ const ProfilePage = () => {
       toast.error("Passwords do no match");
     } else {
       try {
+        // Call updateProfile mutation with the updated user data
         const res = await updateProfile({
           _id: userInfo._id,
           name,
           email,
           password,
         }).unwrap();
+        // Dispatch the updated credentials to update the user state
         dispatch(setCredentials({ ...res }));
         toast.success("Profile updated");
       } catch (error) {
@@ -53,6 +56,7 @@ const ProfilePage = () => {
   };
 
   const handleChange = (e) => {
+    // Update form data as the user types into the input fields
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
