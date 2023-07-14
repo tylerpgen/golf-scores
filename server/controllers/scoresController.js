@@ -1,6 +1,9 @@
 import asyncHandler from "express-async-handler";
 import { Score } from "../models/scores.js";
 
+// @desc    Get all scores of a user
+// @route   GET /api/scores
+// @access  Private
 const getAllScores = asyncHandler(async (req, res) => {
   const scores = await Scores.find({ user: req.user._id });
 
@@ -12,6 +15,9 @@ const getAllScores = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Add a new score
+// @route   POST /api/scores
+// @access  Private
 const addScore = asyncHandler(async (req, res) => {
   const { course, date, score } = req.body;
   const newScore = await Score.create({ course, date, score, user: req.user._id });
@@ -24,6 +30,9 @@ const addScore = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Update a score
+// @route   PUT /api/scores/:id
+// @access  Private
 const updateScore = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { course, date, score } = req.body;
@@ -37,6 +46,9 @@ const updateScore = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Delete a score
+// @route   DELETE /api/scores/:id
+// @access  Private
 const deleteScore = async (req, res) => {
   const { id } = req.params;
   const deletedScore = await Score.findByIdAndDelete(id);
