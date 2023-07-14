@@ -1,60 +1,52 @@
-// import { connectToDatabase } from "../database/db.js";
-// import { Score } from "../models/scores.js";
+import asyncHandler from "express-async-handler";
+import { Score } from "../models/scores.js";
 
-// // Retrieving all existing scores
-// export const getAllScores = async (req, res) => {
-//   try {
-//     const db = await connectToDatabase();
-//     const scores = await Scores.find({});
+const getAllScores = asyncHandler(async (req, res) => {
+  const scores = await Scores.find({ user: req.user._id });
 
-//     res.json(scores);
-//   } catch (error) {
-//     console.error("Error retreiving scores:", error);
-//     res.status(500).json({ message: "Failed to retreive scores" });
-//   }
-// };
+  if (scores) {
+    res.status(200).json(scores);
+  } else {
+    res.status(404);
+    throw new Error("Could not retreive scores");
+  }
+});
 
-// // Adding a score to the database
-// export const addScore = async (req, res) => {
-//   try {
-//     const db = await connectToDatabase();
-//     const { course, score } = req.body;
+const addScore = asyncHandler(async (req, res) => {
+  const { course, date, score } = req.body;
+  const newScore = await Score.create({ course, date, score, user: req.user._id });
 
-//     const newScore = new Score({ course, score });
-//     await newScore.save();
+  if (newScore) {
+    res.status(201).json(newScore);
+  } else {
+    res.status(500);
+    throw new Error("Failed to create new score");
+  }
+});
 
-//     res.status(201).json({ message: "Score added!" });
-//   } catch (error) {
-//     console.error("Error adding score", error);
-//     res.status(500).json({ message: "Failed to add score" });
-//   }
-// };
+const updateScore = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { course, date, score } = req.body;
+  const updatedScore = await Score.findByIdAndUpdate(id, { course, date, score }, { new: true });
 
-// // Editing a score by ID
-// export const editScore = async (req, res) => {
-//   try {
-//     const db = await connectToDatabase();
-//     const { id } = req.params;
-//     const { score } = req.body;
+  if (updatedScore) {
+    res.status(200).json(updatedScore);
+  } else {
+    res.status(404);
+    throw new Error("Score could not be found / updated");
+  }
+});
 
-//     await Score.findByIdAndUpdate(id, { score });
-//     res.json({ message: "Score updated sucessfully" });
-//   } catch (error) {
-//     console.error("Error updating score:", error);
-//     res.status(500).json({ message: "Failed to update score" });
-//   }
-// };
+const deleteScore = async (req, res) => {
+  const { id } = req.params;
+  const deletedScore = await Score.findByIdAndDelete(id);
 
-// // Deleting a score by ID
-// export const deleteScore = async (req, res) => {
-//   try {
-//     const db = await connectToDatabase();
-//     const { id } = req.params;
+  if (deletedScore) {
+    res.status(200).json({ message: "Score deleted" });
+  } else {
+    res.status(404);
+    throw new Error("Could not delete score");
+  }
+};
 
-//     await Score.findByIdAndDelete(id);
-//     res.json({ message: "Score deleted!" });
-//   } catch (error) {
-//     console.error("Error deleting score:", error);
-//     res.status(500).json({ message: "Failed to delete score" });
-//   }
-// };
+export { getAllScores, addScore, updateScore, deleteScore };
