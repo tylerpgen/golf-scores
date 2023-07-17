@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./database/db.js";
 import userRoutes from "./routes/usersRoutes.js";
+import scoresRoutes from "./routes/scoresRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api/users", userRoutes);
+app.use("/api/users/scores", scoresRoutes);
 
 app.get("/", (req, res) => res.send("Server is ready"));
 

@@ -5,10 +5,10 @@ import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // Route for retreiving all scores
-router.get("/scores", protect, getAllScores);
+router.get("/", protect, getAllScores);
 
 //Route for creating a new score
-router.post("/scores/add", protect, addScore);
+router.post("/add", protect, addScore);
 
 //Route for editing an existing score
 router.put("/scores/:id", protect, updateScore);
