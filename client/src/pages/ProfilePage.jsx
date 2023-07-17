@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useTheme } from "@emotion/react";
-import { Box, Button, Container, FormControl, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, FormControl, Grow, Paper, TextField, Typography } from "@mui/material";
 import MoonLoader from "react-spinners/MoonLoader";
 import { setCredentials } from "../features/authReducer";
 import { useUpdateUserMutation } from "../features/usersApiSlice";
@@ -76,150 +76,152 @@ const ProfilePage = () => {
           alignItems: "center",
         }}
       >
-        <Container maxWidth="lg">
-          <Paper elevation={5} sx={{ minHeight: "500px", minWidth: "100%" }}>
-            <Typography
-              align="left"
-              variant="h2"
-              color="black"
-              p="15px"
-              sx={{
-                fontSize: "1.7rem",
-                fontFamily: "Dosis",
-                fontWeight: "500",
-                [theme.breakpoints.up("lg")]: {
-                  fontSize: "2.6rem",
-                  marginTop: "10px",
-                },
-              }}
-            >
-              UPDATE PROFILE
-            </Typography>
-            <form onSubmit={handleSubmit}>
-              <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
-                <TextField
-                  id="name"
-                  name="name"
-                  value={name}
-                  onChange={handleChange}
-                  aria-describedby="first-name"
-                  placeholder="Full Name"
-                  fullWidth
-                  sx={{
-                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      border: "1px solid #e8b923",
-                    },
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#005e23",
-                      },
-                    },
-                  }}
-                />
-              </FormControl>
-
-              {/* Two FormControl components in order to have full width TextFields */}
-
-              <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
-                <TextField
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={handleChange}
-                  aria-describedby="email"
-                  placeholder="Email"
-                  fullWidth
-                  sx={{
-                    mb: "15px",
-                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      border: "1px solid #e8b923",
-                    },
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#005e23",
-                      },
-                    },
-                  }}
-                />
-                <TextField
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={handleChange}
-                  aria-describedby="password"
-                  placeholder="Password"
-                  fullWidth
-                  sx={{
-                    mb: "15px",
-                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      border: "1px solid #e8b923",
-                    },
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#005e23",
-                      },
-                    },
-                  }}
-                />
-                <TextField
-                  type="password"
-                  id="password2"
-                  name="password2"
-                  value={password2}
-                  onChange={handleChange}
-                  aria-describedby="confirm-password"
-                  placeholder="Confirm Password"
-                  fullWidth
-                  sx={{
-                    mb: "15px",
-                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      border: "1px solid #e8b923",
-                    },
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#005e23",
-                      },
-                    },
-                  }}
-                />
-                {isLoading && (
-                  <Box margin="auto" display="block">
-                    {" "}
-                    <MoonLoader size={50} />
-                  </Box>
-                )}
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{
+        <Grow in={true} timeout={500}>
+          <Container maxWidth="lg">
+            <Paper elevation={5} sx={{ minHeight: "500px", minWidth: "100%" }}>
+              <Typography
+                align="left"
+                variant="h2"
+                color="black"
+                p="15px"
+                sx={{
+                  fontSize: "1.7rem",
+                  fontFamily: "Dosis",
+                  fontWeight: "500",
+                  [theme.breakpoints.up("lg")]: {
+                    fontSize: "2.6rem",
                     marginTop: "10px",
+                  },
+                }}
+              >
+                UPDATE PROFILE
+              </Typography>
+              <form onSubmit={handleSubmit}>
+                <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
+                  <TextField
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={handleChange}
+                    aria-describedby="first-name"
+                    placeholder="Full Name"
+                    fullWidth
+                    sx={{
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        border: "1px solid #e8b923",
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "&:hover fieldset": {
+                          borderColor: "#005e23",
+                        },
+                      },
+                    }}
+                  />
+                </FormControl>
 
-                    padding: "15px",
-                    fontSize: "1.4rem",
-                    fontFamily: "Dosis",
-                    fontWeight: "600",
-                    height: "50px",
-                    backgroundColor: "#e8b923",
-                    "&:hover": {
+                {/* Two FormControl components in order to have full width TextFields */}
+
+                <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
+                  <TextField
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                    aria-describedby="email"
+                    placeholder="Email"
+                    fullWidth
+                    sx={{
+                      mb: "15px",
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        border: "1px solid #e8b923",
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "&:hover fieldset": {
+                          borderColor: "#005e23",
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={handleChange}
+                    aria-describedby="password"
+                    placeholder="Password"
+                    fullWidth
+                    sx={{
+                      mb: "15px",
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        border: "1px solid #e8b923",
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "&:hover fieldset": {
+                          borderColor: "#005e23",
+                        },
+                      },
+                    }}
+                  />
+                  <TextField
+                    type="password"
+                    id="password2"
+                    name="password2"
+                    value={password2}
+                    onChange={handleChange}
+                    aria-describedby="confirm-password"
+                    placeholder="Confirm Password"
+                    fullWidth
+                    sx={{
+                      mb: "15px",
+                      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        border: "1px solid #e8b923",
+                      },
+                      "& .MuiOutlinedInput-root": {
+                        "&:hover fieldset": {
+                          borderColor: "#005e23",
+                        },
+                      },
+                    }}
+                  />
+                  {isLoading && (
+                    <Box margin="auto" display="block">
+                      {" "}
+                      <MoonLoader size={50} />
+                    </Box>
+                  )}
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      marginTop: "10px",
+
+                      padding: "15px",
+                      fontSize: "1.4rem",
+                      fontFamily: "Dosis",
+                      fontWeight: "600",
+                      height: "50px",
                       backgroundColor: "#e8b923",
-                      transform: "scale(1.02)",
-                      transition: "all 0.1s ease-in-out",
-                    },
-                    [theme.breakpoints.up("lg")]: {
-                      fontSize: "2rem",
+                      "&:hover": {
+                        backgroundColor: "#e8b923",
+                        transform: "scale(1.02)",
+                        transition: "all 0.1s ease-in-out",
+                      },
+                      [theme.breakpoints.up("lg")]: {
+                        fontSize: "2rem",
 
-                      width: "fit-content",
-                    },
-                  }}
-                >
-                  Update Profile
-                </Button>
-              </FormControl>
-            </form>
-          </Paper>
-        </Container>
+                        width: "fit-content",
+                      },
+                    }}
+                  >
+                    Update Profile
+                  </Button>
+                </FormControl>
+              </form>
+            </Paper>
+          </Container>
+        </Grow>
       </Box>
     </>
   );
