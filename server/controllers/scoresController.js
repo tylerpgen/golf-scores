@@ -5,7 +5,7 @@ import { Score } from "../models/scores.js";
 // @route   GET /api/scores
 // @access  Private
 const getAllScores = asyncHandler(async (req, res) => {
-  const scores = await Scores.find({ user: req.user._id });
+  const scores = await Score.find({ user: req.user._id });
 
   if (scores) {
     res.status(200).json(scores);
