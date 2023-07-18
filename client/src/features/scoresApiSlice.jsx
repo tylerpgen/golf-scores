@@ -5,7 +5,7 @@ export const scoresApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getScores: builder.mutation({
       query: () => ({
-        url: `${USERS_URL}/scores`,
+        url: `${USERS_URL}/scores/`,
         method: "GET",
       }),
     }),
