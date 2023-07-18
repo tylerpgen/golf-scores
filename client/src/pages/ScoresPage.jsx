@@ -1,8 +1,39 @@
+import { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
+import { toast } from "react-toastify";
 import { Typography, Container, Box, Button, Link, Fade } from "@mui/material";
 import Navbar from "../components/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { useCreateScoreMutation, useGetScoresMutation } from "../features/scoresApiSlice";
 
 const ScoresPage = () => {
+  const [formData, setFormData] = useState({
+    course: "",
+    date: "",
+    score: "",
+  });
+
+  const { course, date, score } = formData;
+
+  const dispatch = useDispatch();
+
+  const [getScores, { isLoading: isGettingScores }] = useGetScoresMutation();
+  const [createScore, { isLoading: isCreatingScore }] = useCreateScoreMutation();
+  // const { scoresData } = useSelector((state) => state.data);
+
+  useEffect(() => {
+    const fetchScores = async () => {
+      try {
+        const scores = await getScores();
+        console.log(scores.data);
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+        console.log(error?.data?.message || error.error);
+      }
+    };
+    fetchScores();
+  }, [getScores]);
+
   const theme = useTheme();
   return (
     <>

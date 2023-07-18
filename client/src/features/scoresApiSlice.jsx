@@ -18,3 +18,5 @@ export const scoresApiSlice = apiSlice.injectEndpoints({
     }),
   }),
 });
+
+export const { useGetScoresMutation, useCreateScoreMutation } = scoresApiSlice;
