@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
 import { toast } from "react-toastify";
 import { Typography, Container, Box, Button, Link, Fade } from "@mui/material";
+import MoonLoader from "react-spinners/MoonLoader";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useCreateScoreMutation, useGetScoresMutation } from "../features/scoresApiSlice";
+import { setScoresData } from "../features/scoreSlice";
 
 const ScoresPage = () => {
   const [formData, setFormData] = useState({
@@ -19,20 +21,23 @@ const ScoresPage = () => {
 
   const [getScores, { isLoading: isGettingScores }] = useGetScoresMutation();
   const [createScore, { isLoading: isCreatingScore }] = useCreateScoreMutation();
-  // const { scoresData } = useSelector((state) => state.data);
+  const { scoresData } = useSelector((state) => state.scores);
 
   useEffect(() => {
     const fetchScores = async () => {
       try {
-        const scores = await getScores();
-        console.log(scores.data);
+        const response = await getScores();
+        const scores = response.data;
+        dispatch(setScoresData(scores));
       } catch (error) {
         toast.error(error?.data?.message || error.error);
         console.log(error?.data?.message || error.error);
       }
     };
     fetchScores();
-  }, [getScores]);
+  }, []);
+
+  console.log(scoresData);
 
   const theme = useTheme();
   return (
@@ -49,23 +54,50 @@ const ScoresPage = () => {
       >
         <Fade in={true} timeout={1000}>
           <Container maxWidth="lg" sx={{}}>
-            <Typography
-              align="center"
-              variant="h1"
-              sx={{
-                mb: "8px",
-                color: "white",
-                fontSize: "4rem",
-                fontFamily: "Dancing Script",
-                fontWeight: "700",
-                [theme.breakpoints.up("lg")]: {
-                  fontSize: "10rem",
-                },
-              }}
-            >
-              Your Scores
-            </Typography>
-            <Container align="center"></Container>
+            {isGettingScores ? (
+              <Box margin="auto" display="flex" justifyContent="center">
+                {" "}
+                <MoonLoader size={100} />
+              </Box>
+            ) : (
+              <>
+                {scoresData && scoresData.length > 0 ? (
+                  <Typography
+                    align="center"
+                    variant="h1"
+                    sx={{
+                      mb: "8px",
+                      color: "white",
+                      fontSize: "4rem",
+                      fontFamily: "Dancing Script",
+                      fontWeight: "700",
+                      [theme.breakpoints.up("lg")]: {
+                        fontSize: "10rem",
+                      },
+                    }}
+                  >
+                    Your Scores
+                  </Typography>
+                ) : (
+                  <Typography
+                    align="center"
+                    variant="h1"
+                    sx={{
+                      mb: "8px",
+                      color: "white",
+                      fontSize: "4rem",
+                      fontFamily: "Dancing Script",
+                      fontWeight: "700",
+                      [theme.breakpoints.up("lg")]: {
+                        fontSize: "10rem",
+                      },
+                    }}
+                  >
+                    No Scores...
+                  </Typography>
+                )}
+              </>
+            )}
           </Container>
         </Fade>
       </Box>
