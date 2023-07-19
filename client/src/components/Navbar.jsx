@@ -60,7 +60,7 @@ const Navbar = () => {
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                 >
                   <Typography variant="h6" fontWeight="600" fontFamily="Inter">
-                    {userInfo.name}
+                    Profile
                   </Typography>
                 </Link>
                 <Link

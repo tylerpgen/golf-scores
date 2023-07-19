@@ -1,8 +1,20 @@
 import { useTheme } from "@emotion/react";
 import { Typography, Container, Box, Button, Link, Fade } from "@mui/material";
 import Navbar from "../components/Navbar";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/scores");
+    }
+  }, [navigate, userInfo]);
+
   const theme = useTheme();
   return (
     <>
