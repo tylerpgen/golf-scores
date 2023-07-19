@@ -1,16 +1,60 @@
+import { useTheme } from "@emotion/react";
 import { Container, Paper, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
-const ScoreBox = (props) => {
+const ScoreBox = ({ course, date, score }) => {
+  const theme = useTheme();
   return (
-    <Container maxWidth="sm" sx={{ padding: "15px" }}>
-      <Paper sx={{ padding: "15px" }}>
+    <Container maxWidth="md" sx={{ padding: "15px" }}>
+      <Paper
+        elevation={5}
+        sx={{
+          padding: "15px",
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
+          alignItems: "center",
+          [theme.breakpoints.up("lg")]: {
+            flexDirection: "row",
+          },
+        }}
+      >
         <Typography variant="h5">Course Name:</Typography>
-        <Typography variant="h6">{props.course}</Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            my: "8px",
+            [theme.breakpoints.up("lg")]: {
+              my: "0",
+            },
+          }}
+        >
+          {course}
+        </Typography>
         <Typography variant="h5">Date:</Typography>
-        <Typography variant="h6">{props.date}</Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            my: "8px",
+            [theme.breakpoints.up("lg")]: {
+              my: "0",
+            },
+          }}
+        >
+          {date}
+        </Typography>
         <Typography variant="h5">Score:</Typography>
-        <Typography variant="h6">{props.score}</Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            my: "8px",
+            [theme.breakpoints.up("lg")]: {
+              my: "0",
+            },
+          }}
+        >
+          {score}
+        </Typography>
       </Paper>
     </Container>
   );
