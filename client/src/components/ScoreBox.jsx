@@ -19,10 +19,14 @@ const ScoreBox = ({ course, date, score }) => {
           },
         }}
       >
-        <Typography variant="h5">Course Name:</Typography>
+        <Typography variant="h5" fontFamily="Dosis" fontWeight="700">
+          Course Name:
+        </Typography>
         <Typography
           variant="h6"
           sx={{
+            fontFamily: "Dosis",
+            fontWeight: "00",
             my: "8px",
             [theme.breakpoints.up("lg")]: {
               my: "0",
@@ -31,10 +35,13 @@ const ScoreBox = ({ course, date, score }) => {
         >
           {course}
         </Typography>
-        <Typography variant="h5">Date:</Typography>
+        <Typography variant="h5" fontFamily="Dosis" fontWeight="700">
+          Date:
+        </Typography>
         <Typography
           variant="h6"
           sx={{
+            fontFamily: "Dosis",
             my: "8px",
             [theme.breakpoints.up("lg")]: {
               my: "0",
@@ -43,10 +50,13 @@ const ScoreBox = ({ course, date, score }) => {
         >
           {date}
         </Typography>
-        <Typography variant="h5">Score:</Typography>
+        <Typography variant="h5" fontFamily="Dosis" fontWeight="700">
+          Score:
+        </Typography>
         <Typography
           variant="h6"
           sx={{
+            fontFamily: "Dosis",
             my: "8px",
             [theme.breakpoints.up("lg")]: {
               my: "0",
