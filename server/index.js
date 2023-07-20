@@ -1,5 +1,3 @@
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
@@ -8,8 +6,8 @@ import connectDB from "./database/db.js";
 import userRoutes from "./routes/usersRoutes.js";
 import scoresRoutes from "./routes/scoresRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
-
 dotenv.config();
+
 connectDB();
 
 const app = express();
@@ -23,9 +21,7 @@ app.use("/api/users/scores", scoresRoutes);
 app.use("/api/users", userRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-
+  const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, "..", "client", "dist")));
 
   app.get("*", (req, res) => res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html")));
