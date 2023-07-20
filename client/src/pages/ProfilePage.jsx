@@ -152,6 +152,10 @@ const ProfilePage = () => {
                     aria-describedby="password"
                     placeholder="Password"
                     fullWidth
+                    autoComplete="off"
+                    inputProps={{
+                      minLength: 6,
+                    }}
                     sx={{
                       mb: "15px",
                       "& .Mui-focused .MuiOutlinedInput-notchedOutline": {

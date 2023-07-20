@@ -8,7 +8,7 @@ import {
   Typography,
   Divider,
   List,
-  ListItem,
+  Box,
   Button,
 } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
@@ -18,11 +18,6 @@ import { useLogoutMutation } from "../features/usersApiSlice";
 import { logout } from "../features/authReducer";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
-const navigationLinks = [
-  { name: "Login", href: "/login" },
-  { name: "Sign Up", href: "/register" },
-];
 
 const Navbar = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -133,30 +128,80 @@ const Navbar = () => {
         </IconButton>
         <Divider sx={{ backgroundColor: "black", height: "1px" }} />
         <List>
-          {navigationLinks.map((item, index) => (
-            <ListItem
-              key={index}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
-            >
-              <Link
-                color="textPrimary"
-                variant="button"
-                underline="none"
-                href={item.href}
-                sx={{ color: "white", "&:hover": { color: "white" } }}
-              >
-                <Typography variant="h6" fontWeight="600" fontFamily="Inter" sx={{ fontSize: "1.5rem" }}>
-                  {item.name}
-                </Typography>
-              </Link>
-            </ListItem>
-          ))}
+          {userInfo ? (
+            <>
+              <Box align="center" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/profile"}
+                  sx={{
+                    my: "50px",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Profile
+                  </Typography>
+                </Link>
+
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/scores"}
+                  sx={{
+                    my: "50px",
+                    "&:hover": { textDecoration: "none" },
+                  }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Scores
+                  </Typography>
+                </Link>
+
+                <Button
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  sx={{ my: "50px", color: "white", "&:hover": { textDecoration: "none" } }}
+                  onClick={logoutHandler}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Logout
+                  </Typography>
+                </Button>
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box align="center" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/login"}
+                  sx={{ my: "50px", "&:hover": { textDecoration: "none" } }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Login
+                  </Typography>
+                </Link>
+                <Link
+                  color="white"
+                  variant="button"
+                  underline="none"
+                  href={"/register"}
+                  sx={{ my: "50px", "&:hover": { textDecoration: "none" } }}
+                >
+                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                    Sign Up
+                  </Typography>
+                </Link>
+              </Box>
+            </>
+          )}
         </List>
       </SwipeableDrawer>
     </AppBar>

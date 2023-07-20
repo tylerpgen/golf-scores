@@ -14,6 +14,6 @@ router.post("/add", protect, addScore);
 router.put("/scores/:id", protect, updateScore);
 
 //Route for deleting a score
-router.delete("/scores/:id", protect, deleteScore);
+router.delete("/:id", protect, deleteScore);
 
 export default router;

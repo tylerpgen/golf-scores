@@ -16,7 +16,13 @@ export const scoresApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteScore: builder.mutation({
+      query: (scoreId) => ({
+        url: `${USERS_URL}/scores/${scoreId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetScoresMutation, useCreateScoreMutation } = scoresApiSlice;
+export const { useGetScoresMutation, useCreateScoreMutation, useDeleteScoreMutation } = scoresApiSlice;

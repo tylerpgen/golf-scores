@@ -1,8 +1,9 @@
 import { useTheme } from "@emotion/react";
-import { Container, Paper, Typography } from "@mui/material";
+import { Container, Paper, Typography, IconButton } from "@mui/material";
 import PropTypes from "prop-types";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const ScoreBox = ({ course, date, score }) => {
+const ScoreBox = ({ course, date, score, scoreId, handleDeleteClick }) => {
   const theme = useTheme();
   return (
     <Container maxWidth="md" sx={{ padding: "15px" }}>
@@ -65,6 +66,9 @@ const ScoreBox = ({ course, date, score }) => {
         >
           {score}
         </Typography>
+        <IconButton onClick={() => handleDeleteClick(scoreId)} sx={{ color: "#e8b923" }}>
+          <DeleteIcon />
+        </IconButton>
       </Paper>
     </Container>
   );
@@ -74,6 +78,8 @@ ScoreBox.propTypes = {
   course: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  scoreId: PropTypes.string.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 };
 
 export default ScoreBox;
