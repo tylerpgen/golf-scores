@@ -231,13 +231,13 @@ const ScoresPage = () => {
                             transition: "all 0.1s ease-in-out",
                           },
                           [theme.breakpoints.up("lg")]: {
-                            fontSize: "2rem",
+                            fontSize: "1.5rem",
 
                             width: "fit-content",
                           },
                         }}
                       >
-                        Create
+                        Create Score
                       </Button>
                     </FormControl>
                   </form>
