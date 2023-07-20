@@ -1,11 +1,12 @@
 import express from "express";
-import path from "path";
+import path, { dirname } from "path";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./database/db.js";
 import userRoutes from "./routes/usersRoutes.js";
 import scoresRoutes from "./routes/scoresRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import { fileURLToPath } from "url";
 dotenv.config();
 
 connectDB();
@@ -20,11 +21,15 @@ app.use(cookieParser());
 app.use("/api/users/scores", scoresRoutes);
 app.use("/api/users", userRoutes);
 
-if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, "..", "client", "dist")));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-  app.get("*", (req, res) => res.sendFile(path.resolve(__dirname, "..", "client", "dist", "index.html")));
+if (process.env.NODE_ENV === "production") {
+  const clientDistPath = path.resolve(__dirname, "..", "client", "dist");
+  console.log("clientDistPath:", clientDistPath);
+  app.use(express.static(clientDistPath));
+
+  app.get("*", (req, res) => res.sendFile(path.resolve(clientDistPath, "index.html")));
 } else {
   app.get("/", (req, res) => res.send("Server is ready"));
 }
