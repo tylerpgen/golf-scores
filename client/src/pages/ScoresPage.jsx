@@ -16,7 +16,7 @@ import {
 import MoonLoader from "react-spinners/MoonLoader";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { useCreateScoreMutation, useGetScoresMutation } from "../features/scoresApiSlice";
+import { useCreateScoreMutation, useDeleteScoreMutation, useGetScoresMutation } from "../features/scoresApiSlice";
 import { setScoresData } from "../features/scoreSlice";
 import ScoreBox from "../components/ScoreBox";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -36,6 +36,7 @@ const ScoresPage = () => {
 
   const [getScores, { isLoading: isGettingScores }] = useGetScoresMutation();
   const [createScore, { isLoading: isCreatingScore }] = useCreateScoreMutation();
+  const [deleteScore, { isLoadind: isDeletingScore }] = useDeleteScoreMutation();
   const { scoresData } = useSelector((state) => state.scores);
 
   useEffect(() => {
@@ -87,6 +88,16 @@ const ScoresPage = () => {
       ...prevState,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleDeleteClick = async (scoreId) => {
+    try {
+      await deleteScore(scoreId);
+      toast.success("Score deleted succesfully");
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+      console.log(error?.data?.message || error.error);
+    }
   };
 
   console.log(scoresData);
@@ -255,7 +266,14 @@ const ScoresPage = () => {
                   {scoresData && scoresData.length > 0 ? (
                     <Container maxWidth="lg" sx={{ padding: "15px" }}>
                       {scoresData.map((score) => (
-                        <ScoreBox key={score._id} course={score.course} date={score.date} score={score.score} />
+                        <ScoreBox
+                          key={score._id}
+                          scoreId={score._id}
+                          course={score.course}
+                          date={score.date}
+                          score={score.score}
+                          handleDeleteClick={handleDeleteClick}
+                        />
                       ))}
                     </Container>
                   ) : (
