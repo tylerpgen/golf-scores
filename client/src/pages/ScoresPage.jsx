@@ -60,7 +60,27 @@ const ScoresPage = () => {
     setIsOpen(false);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await createScore(formData);
+      dispatch(setScoresData([...scoresData, response.data]));
+
+      handleClose();
+
+      setFormData({
+        course: "",
+        date: "",
+        score: "",
+      });
+
+      toast.success("Score created succesfully");
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+      console.log(error?.data?.message || error.error);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData((prevState) => ({
