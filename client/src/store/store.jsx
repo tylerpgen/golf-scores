@@ -11,7 +11,7 @@ const store = configureStore({
     scores: scoreReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware), // Add the apiSlice middleware to the store's middleware stack
-  devTools: true, // Enable Redux DevTools extension
+  devTools: false, // Enable Redux DevTools extension
 });
 
 export default store;
