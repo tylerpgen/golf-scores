@@ -96,7 +96,8 @@ const RegisterPage = () => {
                     value={name}
                     onChange={handleChange}
                     aria-describedby="first-name"
-                    placeholder="Full Name"
+                    placeholder="Name"
+                    autoComplete="off"
                     fullWidth
                     sx={{
                       "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
@@ -122,6 +123,7 @@ const RegisterPage = () => {
                     onChange={handleChange}
                     aria-describedby="email"
                     placeholder="Email"
+                    autoComplete="off"
                     fullWidth
                     sx={{
                       mb: "15px",
@@ -144,6 +146,10 @@ const RegisterPage = () => {
                     aria-describedby="password"
                     placeholder="Password"
                     fullWidth
+                    autoComplete="off"
+                    inputProps={{
+                      minLength: 6,
+                    }}
                     sx={{
                       mb: "15px",
                       "& .Mui-focused .MuiOutlinedInput-notchedOutline": {

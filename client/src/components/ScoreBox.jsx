@@ -66,7 +66,7 @@ const ScoreBox = ({ course, date, score, scoreId, handleDeleteClick }) => {
         >
           {score}
         </Typography>
-        <IconButton onClick={() => handleDeleteClick(scoreId)}>
+        <IconButton onClick={() => handleDeleteClick(scoreId)} sx={{ color: "#e8b923" }}>
           <DeleteIcon />
         </IconButton>
       </Paper>
@@ -78,6 +78,8 @@ ScoreBox.propTypes = {
   course: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  scoreId: PropTypes.string.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 };
 
 export default ScoreBox;

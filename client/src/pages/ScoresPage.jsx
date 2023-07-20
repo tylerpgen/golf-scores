@@ -36,7 +36,7 @@ const ScoresPage = () => {
 
   const [getScores, { isLoading: isGettingScores }] = useGetScoresMutation();
   const [createScore, { isLoading: isCreatingScore }] = useCreateScoreMutation();
-  const [deleteScore, { isLoadind: isDeletingScore }] = useDeleteScoreMutation();
+  const [deleteScore] = useDeleteScoreMutation();
   const { scoresData } = useSelector((state) => state.scores);
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const ScoresPage = () => {
               </Typography>
             </Box>
             <Container maxWidth="lg">
-              <IconButton sx={{ color: "white" }} onClick={handleOpen}>
+              <IconButton sx={{ color: "#e8b923" }} onClick={handleOpen}>
                 <AddCircleIcon
                   sx={{
                     fontSize: "2.5rem",
@@ -167,6 +167,7 @@ const ScoresPage = () => {
                         aria-describedby="course"
                         placeholder="Course"
                         fullWidth
+                        autoComplete="off"
                         sx={{
                           mb: "15px",
                           "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
@@ -208,6 +209,7 @@ const ScoresPage = () => {
                         aria-describedby="score"
                         placeholder="Score"
                         fullWidth
+                        autoComplete="off"
                         sx={{
                           mb: "15px",
                           "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
