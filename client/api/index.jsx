@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://golf-scores.onrender.com",
+  baseURL: "https://golfscores.onrender.com",
 });
 
 // Posts API
