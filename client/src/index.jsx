@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import ScoresPage from "./pages/ScoresPage.jsx";
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,8 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
