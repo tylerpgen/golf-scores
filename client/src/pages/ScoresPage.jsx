@@ -94,6 +94,8 @@ const ScoresPage = () => {
     try {
       await deleteScore(scoreId);
       toast.success("Score deleted succesfully");
+
+      dispatch(setScoresData(scoresData.filter((score) => score._id !== scoreId)));
     } catch (error) {
       toast.error(error?.data?.message || error.error);
       console.log(error?.data?.message || error.error);
