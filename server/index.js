@@ -25,7 +25,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 if (process.env.NODE_ENV === "production") {
-  const clientDistPath = path.resolve(__dirname, "..", "client", "dist");
+  const clientDistPath = path.resolve(__dirname, "..", "client/dist");
   console.log("clientDistPath:", clientDistPath);
   app.use(express.static(clientDistPath));
 
