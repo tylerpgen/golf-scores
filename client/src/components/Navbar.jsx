@@ -54,7 +54,7 @@ const Navbar = () => {
                   href={"/profile"}
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Profile
                   </Typography>
                 </Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
                   href={"/scores"}
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Scores
                   </Typography>
                 </Link>
@@ -76,7 +76,7 @@ const Navbar = () => {
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                   onClick={logoutHandler}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Logout
                   </Typography>
                 </Button>
@@ -90,7 +90,7 @@ const Navbar = () => {
                   href={"/login"}
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Login
                   </Typography>
                 </Link>
@@ -101,7 +101,7 @@ const Navbar = () => {
                   href={"/register"}
                   sx={{ mx: 4, "&:hover": { textDecoration: "none" } }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Sign Up
                   </Typography>
                 </Link>
@@ -141,7 +141,7 @@ const Navbar = () => {
                     "&:hover": { textDecoration: "none" },
                   }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Profile
                   </Typography>
                 </Link>
@@ -156,7 +156,7 @@ const Navbar = () => {
                     "&:hover": { textDecoration: "none" },
                   }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Scores
                   </Typography>
                 </Link>
@@ -168,7 +168,7 @@ const Navbar = () => {
                   sx={{ my: "50px", color: "white", "&:hover": { textDecoration: "none" } }}
                   onClick={logoutHandler}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Logout
                   </Typography>
                 </Button>
@@ -184,7 +184,7 @@ const Navbar = () => {
                   href={"/login"}
                   sx={{ my: "50px", "&:hover": { textDecoration: "none" } }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Login
                   </Typography>
                 </Link>
@@ -195,7 +195,7 @@ const Navbar = () => {
                   href={"/register"}
                   sx={{ my: "50px", "&:hover": { textDecoration: "none" } }}
                 >
-                  <Typography variant="h6" fontWeight="600" fontFamily="Inter">
+                  <Typography variant="h5" fontWeight="600" fontFamily="Dosis">
                     Sign Up
                   </Typography>
                 </Link>
