@@ -24,7 +24,15 @@ app.use("/api/users", userRoutes);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-app.get("/", (req, res) => res.send("Server is ready"));
+if (process.env.NODE_ENV === "production") {
+  const clientDistPath = path.resolve(__dirname, "..", "client", "dist");
+  console.log("clientDistPath:", clientDistPath);
+  app.use(express.static(clientDistPath));
+
+  app.get("*", (req, res) => res.sendFile(path.resolve(clientDistPath, "index.html")));
+} else {
+  app.get("/", (req, res) => res.send("Server is ready"));
+}
 
 app.use(notFound);
 app.use(errorHandler);
