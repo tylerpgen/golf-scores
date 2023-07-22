@@ -45,14 +45,14 @@ const HomePage = () => {
                 },
               }}
             >
-              Golf Scores
+              18 Bogeys
             </Typography>
             <Typography
               align="center"
               variant="h2"
               color="white"
               sx={{
-                fontSize: "1.7rem",
+                fontSize: "1.5rem",
                 fontFamily: "Dosis",
                 fontWeight: "500",
                 [theme.breakpoints.up("lg")]: {
