@@ -10,7 +10,9 @@ import { toast } from "react-toastify";
 
 import HomeButton from "../components/HomeButton";
 
+// LoginPage Component
 const LoginPage = () => {
+  // State for form data (email and password)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,18 +20,26 @@ const LoginPage = () => {
 
   const { email, password } = formData;
 
+  // Get the navigate function to programmatically navigate to routes
   const navigate = useNavigate();
+
+  // Get the dispatch function to dispatch actions to the Redux store
   const dispatch = useDispatch();
 
+  // Use the useLoginMutation hook to handle the login API call
   const [login, { isLoading }] = useLoginMutation();
+
+  // Get user info from the Redux store
   const { userInfo } = useSelector((state) => state.auth);
 
+  // Use useEffect to automatically redirect to the scores page if the user is logged in
   useEffect(() => {
     if (userInfo) {
       navigate("/scores");
     }
   }, [navigate, userInfo]);
 
+  // Handle form input changes
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -41,17 +51,24 @@ const LoginPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      // Call the login mutation with the form data and unwrap the response
       const res = await login(formData).unwrap();
+      // Dispatch the setCredentials action to update the Redux store with the user's credentials
       dispatch(setCredentials({ ...res }));
     } catch (error) {
+      // Handle any errors during the login process and show a toast message
       toast.error(error?.data?.message || error.error);
     }
   };
-
   const theme = useTheme();
+
+  // Return JSX for rendering the LoginPage component
   return (
     <>
+      {/* Render the HomeButton component */}
       <HomeButton />
+
+      {/* Main content */}
       <Box
         sx={{
           minHeight: "100vh",
@@ -64,6 +81,7 @@ const LoginPage = () => {
         <Grow in={true} timeout={700}>
           <Container maxWidth="lg">
             <Paper elevation={5} sx={{ minHeight: "380px", minWidth: "100%" }}>
+              {/* Login Heading */}
               <Typography
                 align="left"
                 variant="h2"
@@ -75,14 +93,17 @@ const LoginPage = () => {
                   fontWeight: "500",
                   [theme.breakpoints.up("lg")]: {
                     fontSize: "2.6rem",
-                    marginTop: "10px",
+                    marginTop: "10px", // Adjust margin for large screens using theme breakpoints
                   },
                 }}
               >
                 SIGN IN
               </Typography>
+
+              {/* Login Form */}
               <form onSubmit={handleSubmit}>
                 <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
+                  {/* Email Input */}
                   <TextField
                     type="email"
                     id="email"
@@ -104,6 +125,8 @@ const LoginPage = () => {
                       },
                     }}
                   />
+
+                  {/* Password Input */}
                   <TextField
                     type="password"
                     id="password"
@@ -125,18 +148,20 @@ const LoginPage = () => {
                       },
                     }}
                   />
+
+                  {/* Loading spinner while logging in */}
                   {isLoading && (
                     <Box margin="auto" display="block">
-                      {" "}
                       <MoonLoader size={50} />
                     </Box>
                   )}
+
+                  {/* Login Button */}
                   <Button
                     type="submit"
                     variant="contained"
                     sx={{
                       marginTop: "10px",
-
                       padding: "15px",
                       fontSize: "1.4rem",
                       fontFamily: "Dosis",
@@ -150,13 +175,14 @@ const LoginPage = () => {
                       },
                       [theme.breakpoints.up("lg")]: {
                         fontSize: "2rem",
-
                         width: "fit-content",
                       },
                     }}
                   >
                     LOGIN
                   </Button>
+
+                  {/* Link to Registration */}
                   <Typography mt="10px" pt="15px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "0.9rem" }}>
                     Need an account? {""}
                     <Link href="/register" sx={{ cursor: "pointer" }}>
@@ -173,4 +199,5 @@ const LoginPage = () => {
   );
 };
 
+// Export the LoginPage component
 export default LoginPage;
