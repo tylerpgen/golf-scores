@@ -8,7 +8,9 @@ import { setCredentials } from "../features/authReducer";
 import { useUpdateUserMutation } from "../features/usersApiSlice";
 import HomeButton from "../components/HomeButton";
 
+// ProfilePage Component
 const ProfilePage = () => {
+  // State for form data (name, email, password, and password2)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,13 +20,17 @@ const ProfilePage = () => {
 
   const { name, email, password, password2 } = formData;
 
+  // Get the dispatch function to dispatch actions to the Redux store
   const dispatch = useDispatch();
 
+  // Get user info from the Redux store
   const { userInfo } = useSelector((state) => state.auth);
+
+  // Use the useUpdateUserMutation hook to handle the update user API call
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
+  // Use useEffect to update the form data with user information when userInfo changes
   useEffect(() => {
-    // Update form data when userInfo changes
     setFormData((prevFormData) => ({
       ...prevFormData,
       name: userInfo.name,
@@ -32,14 +38,25 @@ const ProfilePage = () => {
     }));
   }, [userInfo]);
 
-  // Handle Submit function for form controls
+  // Handle form input changes
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  // Get the current theme using the useTheme hook from @emotion/react
+  const theme = useTheme();
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      toast.error("Passwords do no match");
+      toast.error("Passwords do not match");
     } else {
       try {
-        // Call updateProfile mutation with the updated user data
+        // Call the updateProfile mutation with the updated user data
         const res = await updateProfile({
           _id: userInfo._id,
           name,
@@ -55,18 +72,13 @@ const ProfilePage = () => {
     }
   };
 
-  const handleChange = (e) => {
-    // Update form data as the user types into the input fields
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const theme = useTheme();
+  // Return JSX for rendering the ProfilePage component
   return (
     <>
+      {/* Render the HomeButton component */}
       <HomeButton />
+
+      {/* Main content */}
       <Box
         sx={{
           minHeight: "100vh",
@@ -79,6 +91,7 @@ const ProfilePage = () => {
         <Grow in={true} timeout={500}>
           <Container maxWidth="lg">
             <Paper elevation={5} sx={{ minHeight: "500px", minWidth: "100%" }}>
+              {/* Profile Update Heading */}
               <Typography
                 align="left"
                 variant="h2"
@@ -90,13 +103,16 @@ const ProfilePage = () => {
                   fontWeight: "500",
                   [theme.breakpoints.up("lg")]: {
                     fontSize: "2.6rem",
-                    marginTop: "10px",
+                    marginTop: "10px", // Adjust margin for large screens using theme breakpoints
                   },
                 }}
               >
                 UPDATE PROFILE
               </Typography>
+
+              {/* Profile Update Form */}
               <form onSubmit={handleSubmit}>
+                {/* Name Input */}
                 <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
                   <TextField
                     id="name"
@@ -119,8 +135,9 @@ const ProfilePage = () => {
                   />
                 </FormControl>
 
-                {/* Two FormControl components in order to have full width TextFields */}
+                {/* Two FormControl components are used to have full-width TextFields */}
 
+                {/* Email Input */}
                 <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
                   <TextField
                     type="email"
@@ -143,6 +160,8 @@ const ProfilePage = () => {
                       },
                     }}
                   />
+
+                  {/* Password Input */}
                   <TextField
                     type="password"
                     id="password"
@@ -168,6 +187,8 @@ const ProfilePage = () => {
                       },
                     }}
                   />
+
+                  {/* Confirm Password Input */}
                   <TextField
                     type="password"
                     id="password2"
@@ -189,18 +210,20 @@ const ProfilePage = () => {
                       },
                     }}
                   />
+
+                  {/* Loading spinner while updating profile */}
                   {isLoading && (
                     <Box margin="auto" display="block">
-                      {" "}
                       <MoonLoader size={50} />
                     </Box>
                   )}
+
+                  {/* Update Profile Button */}
                   <Button
                     type="submit"
                     variant="contained"
                     sx={{
                       marginTop: "10px",
-
                       padding: "15px",
                       fontSize: "1.4rem",
                       fontFamily: "Dosis",
@@ -214,7 +237,6 @@ const ProfilePage = () => {
                       },
                       [theme.breakpoints.up("lg")]: {
                         fontSize: "2rem",
-
                         width: "fit-content",
                       },
                     }}
@@ -231,4 +253,5 @@ const ProfilePage = () => {
   );
 };
 
+// Export the ProfilePage component
 export default ProfilePage;

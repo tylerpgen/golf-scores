@@ -9,7 +9,9 @@ import HomeButton from "../components/HomeButton";
 import { useRegisterMutation } from "../features/usersApiSlice";
 import { setCredentials } from "../features/authReducer";
 
+// RegisterPage Component
 const RegisterPage = () => {
+  // State for form data (name, email, password, and password2)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,35 +21,26 @@ const RegisterPage = () => {
 
   const { name, email, password, password2 } = formData;
 
+  // Use the useNavigate hook to get the navigation function
   const navigate = useNavigate();
+
+  // Get the dispatch function to dispatch actions to the Redux store
   const dispatch = useDispatch();
 
+  // Use the useRegisterMutation hook to handle the register user API call
   const [register, { isLoading }] = useRegisterMutation();
+
+  // Get user info from the Redux store
   const { userInfo } = useSelector((state) => state.auth);
 
+  // Use useEffect to redirect to the home page if the user is already logged in
   useEffect(() => {
     if (userInfo) {
       navigate("/");
     }
   }, [navigate, userInfo]);
 
-  // Handle Submit function for form controls
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== password2) {
-      toast.error("Passwords do no match");
-    } else {
-      try {
-        const res = await register(formData).unwrap();
-        dispatch(setCredentials({ ...res }));
-        navigate("/");
-      } catch (error) {
-        toast.error(error?.data?.message || error.error);
-        console.log(error?.data?.message || error.error);
-      }
-    }
-  };
-
+  // Handle form input changes
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -56,9 +49,33 @@ const RegisterPage = () => {
   };
 
   const theme = useTheme();
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      toast.error("Passwords do not match");
+    } else {
+      try {
+        // Call the register mutation with the form data and unwrap the result
+        const res = await register(formData).unwrap();
+        // Dispatch the credentials to update the user state
+        dispatch(setCredentials({ ...res }));
+        // Redirect to the home page after successful registration
+        navigate("/");
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+        console.log(error?.data?.message || error.error);
+      }
+    }
+  };
+
   return (
     <>
+      {/* Render the HomeButton component */}
       <HomeButton />
+
+      {/* Main content */}
       <Box
         sx={{
           minHeight: "100vh",
@@ -71,6 +88,7 @@ const RegisterPage = () => {
         <Grow in={true} timeout={700}>
           <Container maxWidth="lg">
             <Paper elevation={5} sx={{ minHeight: "500px", minWidth: "100%" }}>
+              {/* Register Heading */}
               <Typography
                 align="left"
                 variant="h2"
@@ -82,13 +100,16 @@ const RegisterPage = () => {
                   fontWeight: "500",
                   [theme.breakpoints.up("lg")]: {
                     fontSize: "2.6rem",
-                    marginTop: "10px",
+                    marginTop: "10px", // Adjust margin for large screens using theme breakpoints
                   },
                 }}
               >
                 CREATE AN ACCOUNT
               </Typography>
+
+              {/* Register Form */}
               <form onSubmit={handleSubmit}>
+                {/* Name Input */}
                 <FormControl sx={{ display: "flex", flexDirection: "row", padding: "15px" }}>
                   <TextField
                     id="name"
@@ -112,8 +133,9 @@ const RegisterPage = () => {
                   />
                 </FormControl>
 
-                {/* Two FormControl components in order to have full width TextFields */}
+                {/* Two FormControl components are used to have full-width TextFields */}
 
+                {/* Email Input */}
                 <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
                   <TextField
                     type="email"
@@ -137,6 +159,7 @@ const RegisterPage = () => {
                       },
                     }}
                   />
+                  {/* Password Input */}
                   <TextField
                     type="password"
                     id="password"
@@ -162,6 +185,7 @@ const RegisterPage = () => {
                       },
                     }}
                   />
+                  {/* Confirm Password Input */}
                   <TextField
                     type="password"
                     id="password2"
@@ -183,22 +207,25 @@ const RegisterPage = () => {
                       },
                     }}
                   />
+                  {/* Terms and Conditions */}
                   <Typography p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "1rem" }}>
-                    By creating an account, I agree to the terms of service of the site, in accordance to the{" "}
+                    By creating an account, I agree to the terms of service of the site, in accordance with the{" "}
                     <b>PRIVACY POLICY</b>
                   </Typography>
+
+                  {/* Loading spinner while submitting */}
                   {isLoading && (
                     <Box margin="auto" display="block">
-                      {" "}
                       <MoonLoader size={50} />
                     </Box>
                   )}
+
+                  {/* Submit Button */}
                   <Button
                     type="submit"
                     variant="contained"
                     sx={{
                       marginTop: "10px",
-
                       padding: "15px",
                       fontSize: "1.4rem",
                       fontFamily: "Dosis",
@@ -212,13 +239,15 @@ const RegisterPage = () => {
                       },
                       [theme.breakpoints.up("lg")]: {
                         fontSize: "2rem",
-                        marginLeft: "10px",
+                        marginLeft: "10px", // Adjust margin for large screens using theme breakpoints
                         width: "fit-content",
                       },
                     }}
                   >
                     Create Account
                   </Button>
+
+                  {/* Login link for users who already have an account */}
                   <Typography mt="10px" p="10px" sx={{ fontFamily: "Dosis", fontWeight: "500", fontSize: "0.9rem" }}>
                     Already have an account? {""}
                     <Link href="/login" sx={{ cursor: "pointer" }}>
@@ -235,4 +264,5 @@ const RegisterPage = () => {
   );
 };
 
+// Export the RegisterPage component
 export default RegisterPage;

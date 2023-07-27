@@ -21,8 +21,11 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const Navbar = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+
+  // State to control the visibility of the SwipeableDrawer on mobile screens
   const [open, setOpen] = useState(false);
 
+  // Extract user info from Redux store
   const { userInfo } = useSelector((state) => state.auth);
 
   const [logoutApiCall] = useLogoutMutation();
@@ -30,6 +33,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Handler function for user logout
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
@@ -46,6 +50,7 @@ const Navbar = () => {
         {isNonMobileScreens && (
           <>
             {userInfo ? (
+              /* If the user is logged in, show profile, scores, and logout links */
               <>
                 <Link
                   color="white"
@@ -110,12 +115,15 @@ const Navbar = () => {
           </>
         )}
 
+        {/* Show the menu icon for mobile screens */}
         {!isNonMobileScreens ? (
           <IconButton sx={{ ml: "auto" }}>
             <MenuIcon sx={{ color: "white", fontSize: 40 }} onClick={() => setOpen(true)} />
           </IconButton>
         ) : null}
       </Toolbar>
+
+      {/* SwipeableDrawer for mobile screens */}
       <SwipeableDrawer
         anchor="right"
         open={open}
@@ -129,6 +137,7 @@ const Navbar = () => {
         <Divider sx={{ backgroundColor: "black", height: "1px" }} />
         <List>
           {userInfo ? (
+            /* Show profile, scores, and logout links in the mobile drawer if the user is logged in */
             <>
               <Box align="center" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <Link
@@ -175,6 +184,7 @@ const Navbar = () => {
               </Box>
             </>
           ) : (
+            /* Show login and sign up links in the mobile drawer if the user is not logged in */
             <>
               <Box align="center" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <Link
