@@ -5,10 +5,15 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// HomePage Component
 const HomePage = () => {
+  // Extract user info from Redux store
   const { userInfo } = useSelector((state) => state.auth);
+
+  // Get the navigate function to programmatically navigate to routes
   const navigate = useNavigate();
 
+  // Use useEffect to automatically redirect to the scores page if the user is logged in
   useEffect(() => {
     if (userInfo) {
       navigate("/scores");
@@ -16,9 +21,12 @@ const HomePage = () => {
   }, [navigate, userInfo]);
 
   const theme = useTheme();
+
   return (
     <>
+      {/* Render the Navbar component */}
       <Navbar />
+
       {/* Landing Page */}
       <Box
         sx={{
@@ -31,6 +39,7 @@ const HomePage = () => {
       >
         <Fade in={true} timeout={1000}>
           <Container maxWidth="lg" sx={{ paddingBottom: "150px" }}>
+            {/* Main Heading */}
             <Typography
               align="center"
               variant="h1"
@@ -41,12 +50,14 @@ const HomePage = () => {
                 fontFamily: "Dancing Script",
                 fontWeight: "700",
                 [theme.breakpoints.up("lg")]: {
-                  fontSize: "10rem",
+                  fontSize: "10rem", // Adjust font size for large screens using theme breakpoints
                 },
               }}
             >
               18 Bogeys
             </Typography>
+
+            {/* Subheading */}
             <Typography
               align="center"
               variant="h2"
@@ -56,14 +67,17 @@ const HomePage = () => {
                 fontFamily: "Dosis",
                 fontWeight: "500",
                 [theme.breakpoints.up("lg")]: {
-                  fontSize: "2.6rem",
-                  marginTop: "10px",
+                  fontSize: "2.6rem", // Adjust font size for large screens using theme breakpoints
+                  marginTop: "10px", // Adjust margin for large screens using theme breakpoints
                 },
               }}
             >
               Keep track of your scores easily!
             </Typography>
+
+            {/* Container for the Sign Up button */}
             <Container align="center">
+              {/* Link to the registration page */}
               <Link href="/register" sx={{ textDecoration: "none" }}>
                 <Button
                   variant="contained"
@@ -75,15 +89,14 @@ const HomePage = () => {
                     height: "50px",
                     width: "fit-content",
                     backgroundColor: "#e8b923",
-
                     "&:hover": {
                       backgroundColor: "#e8b923",
-                      transform: "scale(1.1)",
-                      transition: "all 0.1s ease-in-out",
+                      transform: "scale(1.1)", // Add a scale effect on hover
+                      transition: "all 0.1s ease-in-out", // Add a smooth transition on hover
                     },
                     [theme.breakpoints.up("lg")]: {
-                      fontSize: "2rem",
-                      width: "250px",
+                      fontSize: "2rem", // Adjust font size for large screens using theme breakpoints
+                      width: "250px", // Adjust button width for large screens using theme breakpoints
                     },
                   }}
                 >
@@ -98,4 +111,5 @@ const HomePage = () => {
   );
 };
 
+// Export the HomePage component
 export default HomePage;
