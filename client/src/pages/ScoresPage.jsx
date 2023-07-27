@@ -21,24 +21,34 @@ import { setScoresData } from "../features/scoreSlice";
 import ScoreBox from "../components/ScoreBox";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
+// ScoresPage Component
 const ScoresPage = () => {
+  // State for form data (course, date, and score)
   const [formData, setFormData] = useState({
     course: "",
     date: "",
     score: "",
   });
+
+  // State to control the open/close state of the modal
   const [isOpen, setIsOpen] = useState(false);
 
   const { course, date, score } = formData;
+
+  // Get user info from the Redux store
   const { userInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
+  // Hooks for API calls to get scores, create a score, and delete a score
   const [getScores, { isLoading: isGettingScores }] = useGetScoresMutation();
   const [createScore, { isLoading: isCreatingScore }] = useCreateScoreMutation();
   const [deleteScore] = useDeleteScoreMutation();
+
+  // Get scores data from the Redux store
   const { scoresData } = useSelector((state) => state.scores);
 
+  // useEffect to fetch scores data when the component mounts
   useEffect(() => {
     const fetchScores = async () => {
       try {
@@ -53,14 +63,17 @@ const ScoresPage = () => {
     fetchScores();
   }, []);
 
+  // Handle opening the modal
   const handleOpen = () => {
     setIsOpen(true);
   };
 
+  // Handle closing the modal
   const handleClose = () => {
     setIsOpen(false);
   };
 
+  // Handle form submission to create a new score
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,6 +81,7 @@ const ScoresPage = () => {
       const response = await createScore(formData);
       dispatch(setScoresData([...scoresData, response.data]));
 
+      // Close the modal and reset form data
       handleClose();
 
       setFormData({
@@ -76,13 +90,14 @@ const ScoresPage = () => {
         score: "",
       });
 
-      toast.success("Score created succesfully");
+      toast.success("Score created successfully");
     } catch (error) {
       toast.error(error?.data?.message || error.error);
       console.log(error?.data?.message || error.error);
     }
   };
 
+  // Handle form input changes
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -90,11 +105,13 @@ const ScoresPage = () => {
     }));
   };
 
+  // Handle click event to delete a score
   const handleDeleteClick = async (scoreId) => {
     try {
       await deleteScore(scoreId);
-      toast.success("Score deleted succesfully");
+      toast.success("Score deleted successfully");
 
+      // Update the Redux store with the filtered scoresData (remove the deleted score)
       dispatch(setScoresData(scoresData.filter((score) => score._id !== scoreId)));
     } catch (error) {
       toast.error(error?.data?.message || error.error);
@@ -103,11 +120,14 @@ const ScoresPage = () => {
   };
 
   console.log(scoresData);
-
   const theme = useTheme();
+
+  // Return JSX for rendering the ScoresPage component
   return (
     <>
+      {/* Render the Navbar component */}
       <Navbar />
+
       {/* Landing Page */}
       <Box
         sx={{
@@ -120,6 +140,7 @@ const ScoresPage = () => {
         <Fade in={true} timeout={1000}>
           <Container maxWidth="lg" sx={{}}>
             <Box>
+              {/* Display user's name and "Scores" */}
               <Typography
                 align="center"
                 variant="h3"
@@ -137,6 +158,8 @@ const ScoresPage = () => {
                 {userInfo.name}'s Scores
               </Typography>
             </Box>
+
+            {/* Add Score Button */}
             <Container maxWidth="lg">
               <IconButton sx={{ color: "#e8b923" }} onClick={handleOpen}>
                 <AddCircleIcon
@@ -150,6 +173,8 @@ const ScoresPage = () => {
                 />
               </IconButton>
             </Container>
+
+            {/* Modal for Adding a New Score */}
             <Modal
               open={isOpen}
               onClose={handleClose}
@@ -159,6 +184,7 @@ const ScoresPage = () => {
                 <Paper elevation={4}>
                   <form onSubmit={handleSubmit}>
                     <FormControl sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
+                      {/* Course Input */}
                       <TextField
                         id="course"
                         name="course"
@@ -180,6 +206,8 @@ const ScoresPage = () => {
                           },
                         }}
                       />
+
+                      {/* Date Input */}
                       <TextField
                         type="date"
                         id="date"
@@ -201,6 +229,8 @@ const ScoresPage = () => {
                           },
                         }}
                       />
+
+                      {/* Score Input */}
                       <TextField
                         id="score"
                         name="score"
@@ -222,18 +252,20 @@ const ScoresPage = () => {
                           },
                         }}
                       />
+
+                      {/* Loading spinner while creating the score */}
                       {isCreatingScore && (
                         <Box margin="auto" display="block">
-                          {" "}
                           <MoonLoader size={50} />
                         </Box>
                       )}
+
+                      {/* Submit Button */}
                       <Button
                         type="submit"
                         variant="contained"
                         sx={{
                           marginTop: "10px",
-
                           padding: "15px",
                           fontSize: "1.4rem",
                           fontFamily: "Dosis",
@@ -247,7 +279,6 @@ const ScoresPage = () => {
                           },
                           [theme.breakpoints.up("lg")]: {
                             fontSize: "1.5rem",
-
                             width: "fit-content",
                           },
                         }}
@@ -259,15 +290,18 @@ const ScoresPage = () => {
                 </Paper>
               </Container>
             </Modal>
+
+            {/* Display Scores */}
             <Box>
               {isGettingScores ? (
+                // Loading spinner while getting scores
                 <Box margin="auto" display="flex" justifyContent="center">
-                  {" "}
                   <MoonLoader size={80} />
                 </Box>
               ) : (
                 <>
                   {scoresData && scoresData.length > 0 ? (
+                    // Display ScoreBox component for each score
                     <Container maxWidth="lg" sx={{ padding: "15px" }}>
                       {scoresData.map((score) => (
                         <ScoreBox
@@ -281,6 +315,7 @@ const ScoresPage = () => {
                       ))}
                     </Container>
                   ) : (
+                    // Display message if there are no scores
                     <Typography
                       align="center"
                       variant="h1"
